@@ -8,11 +8,15 @@
 void foo(double d)
 {
 	IzyLogger::logFatal(std::format("log fatal from foo with double d: {}", d));
+
+	IzyLogger::logInfoToLogFile("logging info only to log file from foo");
 }
 
 void bar(char c)
 {
 	IzyLogger::logError(std::format("log error from bar with char c: {}", c));
+
+	IzyLogger::logWarnToOutsream(std::cout, "logging warning only to cout from bar");
 }
 
 
