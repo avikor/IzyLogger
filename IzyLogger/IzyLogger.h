@@ -245,11 +245,11 @@ private:
 		Trace
 	};
 
-	static constexpr std::string_view to_string(Level lvl) noexcept;
+	static constexpr std::string_view to_string_view(Level lvl) noexcept;
 
 	inline friend std::ostream& operator<<(std::ostream& os, Level lvl)
 	{
-		os << "[" << IzyLogger::to_string(lvl) << "]\t";
+		os << "[" << IzyLogger::to_string_view(lvl) << "]\t";
 		return os;
 	}
 
@@ -275,7 +275,7 @@ std::mutex IzyLogger::s_mutex{};
 
 
 
-constexpr std::string_view IzyLogger::to_string(Level lvl) noexcept
+constexpr std::string_view IzyLogger::to_string_view(Level lvl) noexcept
 {
 	if (lvl == Level::Fatal)
 	{
@@ -303,7 +303,7 @@ constexpr std::string_view IzyLogger::to_string(Level lvl) noexcept
 	}
 	else
 	{
-		return "to_string(Level)-failure";
+		return "to_string_view(Level)-failure";
 	}
 }
 

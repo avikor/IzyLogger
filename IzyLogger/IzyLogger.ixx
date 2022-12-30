@@ -46,7 +46,7 @@
 //		Trace
 //	};
 //
-//	constexpr std::string_view to_string(Level lvl) noexcept
+//	constexpr std::string_view to_string_view(Level lvl) noexcept
 //	{
 //		if (lvl == Level::Fatal)
 //		{
@@ -74,13 +74,13 @@
 //		}
 //		else
 //		{
-//			return "to_string(Level)-failure";
+//			return "to_string_view(Level)-failure";
 //		}
 //	}
 //
 //	inline std::ostream& operator<<(std::ostream& os, Level lvl)
 //	{
-//		os << "[" << to_string(lvl) << "]\t";
+//		os << "[" << to_string_view(lvl) << "]\t";
 //		return os;
 //	}
 //
