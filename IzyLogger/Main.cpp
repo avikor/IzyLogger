@@ -2,7 +2,7 @@
 #include <format>
 #include <future>
 
-#include "IzyLogger.h"
+#include "IzyLogger.hpp"
 
 
 void foo(double d)
