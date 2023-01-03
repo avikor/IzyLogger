@@ -14,20 +14,20 @@
 //
 //namespace IzyLogger
 //{
-//	static std::ofstream s_logFile{ "technosoftLogger.log" };
-//	static std::mutex s_mutex{};
+//	static std::ofstream logFile_s{ "technosoftLogger.log" };
+//	static std::mutex mutex_s{};
 //
 //	enum class BackgroundColor : int
 //	{
-//		Black = 40,
-//		Red = 41,
-//		Green = 42,
-//		Yellow = 43,
-//		Blue = 44,
-//		Magenta = 45,
-//		Cyan = 46,
-//		White = 47,
-//		Default = 49
+//		black = 40,
+//		red = 41,
+//		green = 42,
+//		yellow = 43,
+//		blue = 44,
+//		magenta = 45,
+//		cyan = 46,
+//		white = 47,
+//		defaultColor = 49
 //	};
 //
 //	inline std::ostream& operator<<(std::ostream& os, BackgroundColor bgColor)
@@ -38,39 +38,39 @@
 //
 //	enum class Level : int
 //	{
-//		Fatal,
-//		Error,
-//		Warn,
-//		Info,
-//		Debug,
-//		Trace
+//		fatal,
+//		error,
+//		warn,
+//		info,
+//		debug,
+//		trace
 //	};
 //
 //	constexpr std::string_view to_string_view(Level lvl) noexcept
 //	{
-//		if (lvl == Level::Fatal)
+//		if (lvl == Level::fatal)
 //		{
-//			return "Fatal";
+//			return "fatal";
 //		}
-//		else if (lvl == Level::Error)
+//		else if (lvl == Level::error)
 //		{
-//			return "Error";
+//			return "error";
 //		}
-//		else if (lvl == Level::Warn)
+//		else if (lvl == Level::warn)
 //		{
-//			return "Warn";
+//			return "warn";
 //		}
-//		else if (lvl == Level::Info)
+//		else if (lvl == Level::info)
 //		{
-//			return "Info";
+//			return "info";
 //		}
-//		else if (lvl == Level::Debug)
+//		else if (lvl == Level::debug)
 //		{
-//			return "Debug";
+//			return "debug";
 //		}
-//		else if (lvl == Level::Trace)
+//		else if (lvl == Level::trace)
 //		{
-//			return "Trace";
+//			return "trace";
 //		}
 //		else
 //		{
@@ -86,31 +86,31 @@
 //
 //	BackgroundColor levelToColor(Level lvl) noexcept
 //	{
-//		BackgroundColor bgColor{ BackgroundColor::Default };
+//		BackgroundColor bgColor{ BackgroundColor::defaultColor };
 //
-//		if (lvl == Level::Fatal)
+//		if (lvl == Level::fatal)
 //		{
-//			bgColor = BackgroundColor::Magenta;
+//			bgColor = BackgroundColor::magenta;
 //		}
-//		else if (lvl == Level::Error)
+//		else if (lvl == Level::error)
 //		{
-//			bgColor = BackgroundColor::Red;
+//			bgColor = BackgroundColor::red;
 //		}
-//		else if (lvl == Level::Warn)
+//		else if (lvl == Level::warn)
 //		{
-//			bgColor = BackgroundColor::Yellow;
+//			bgColor = BackgroundColor::yellow;
 //		}
-//		else if (lvl == Level::Info)
+//		else if (lvl == Level::info)
 //		{
-//			bgColor = BackgroundColor::Blue;
+//			bgColor = BackgroundColor::blue;
 //		}
-//		else if (lvl == Level::Debug)
+//		else if (lvl == Level::debug)
 //		{
-//			bgColor = BackgroundColor::Green;
+//			bgColor = BackgroundColor::green;
 //		}
-//		else if (lvl == Level::Trace)
+//		else if (lvl == Level::trace)
 //		{
-//			bgColor = BackgroundColor::Default;
+//			bgColor = BackgroundColor::defaultColor;
 //		}
 //
 //		return bgColor;
@@ -140,7 +140,7 @@
 //	{
 //		if (&os == &std::cout || &os == &std::cerr || &os == &std::clog)
 //		{
-//			colorizeTerminal(os, BackgroundColor::Default);
+//			colorizeTerminal(os, BackgroundColor::defaultColor);
 //		}
 //	}
 //
@@ -184,7 +184,7 @@
 //
 //	void Log(std::ostream& os, Level lvl, std::string_view msg, const std::source_location location) noexcept
 //	{
-//		std::lock_guard lock{ s_mutex };
+//		std::lock_guard lock{ mutex_s };
 //
 //		tagMsgWithLevel(os, lvl);
 //
@@ -199,7 +199,7 @@
 //
 //	void LogToBoth(Level lvl, std::string_view msg, const std::source_location location) noexcept
 //	{
-//		std::lock_guard lock{ s_mutex };
+//		std::lock_guard lock{ mutex_s };
 //
 //		std::ostringstream timeStream{ logTime() };
 //		const std::string& timeStr{ timeStream.str() };
@@ -214,7 +214,7 @@
 //			msg.data() + '\n'
 //		};
 //
-//		std::ostream& fOut = static_cast<std::ostream&>(s_logFile);
+//		std::ostream& fOut = static_cast<std::ostream&>(logFile_s);
 //		tagMsgWithLevel(fOut, lvl);
 //		fOut << logLine;
 //		unTagMsgWithLevel(fOut);
@@ -306,80 +306,80 @@
 //	export inline void logFatal(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		LogToBoth(Level::Fatal, msg, location);
+//		LogToBoth(Level::fatal, msg, location);
 //	}
 //
 //	export inline void logError(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		LogToBoth(Level::Error, msg, location);
+//		LogToBoth(Level::error, msg, location);
 //	}
 //
 //	export inline void logWarn(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		LogToBoth(Level::Warn, msg, location);
+//		LogToBoth(Level::warn, msg, location);
 //	}
 //
 //	export inline void logInfo(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		LogToBoth(Level::Info, msg, location);
+//		LogToBoth(Level::info, msg, location);
 //	}
 //
 //	export inline void logDebug(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		LogToBoth(Level::Debug, msg, location);
+//		LogToBoth(Level::debug, msg, location);
 //	}
 //
 //	export inline void logTrace(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		LogToBoth(Level::Trace, msg, location);
+//		LogToBoth(Level::trace, msg, location);
 //	}
 //
 //	///////////////////////////// write to log file ///////////////////////////////////////////
 //	export inline void logFatalToLogFile(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		std::ostream& fOut = static_cast<std::ostream&>(s_logFile);
-//		Log(fOut, Level::Fatal, msg, location);
+//		std::ostream& fOut = static_cast<std::ostream&>(logFile_s);
+//		Log(fOut, Level::fatal, msg, location);
 //	}
 //
 //	export inline void logErrorToLogFile(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		std::ostream& fOut = static_cast<std::ostream&>(s_logFile);
-//		Log(fOut, Level::Error, msg, location);
+//		std::ostream& fOut = static_cast<std::ostream&>(logFile_s);
+//		Log(fOut, Level::error, msg, location);
 //	}
 //
 //	export inline void logWarnToLogFile(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		std::ostream& fOut = static_cast<std::ostream&>(s_logFile);
-//		Log(fOut, Level::Warn, msg, location);
+//		std::ostream& fOut = static_cast<std::ostream&>(logFile_s);
+//		Log(fOut, Level::warn, msg, location);
 //	}
 //
 //	export inline void logInfoToLogFile(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		std::ostream& fOut = static_cast<std::ostream&>(s_logFile);
-//		Log(fOut, Level::Info, msg, location);
+//		std::ostream& fOut = static_cast<std::ostream&>(logFile_s);
+//		Log(fOut, Level::info, msg, location);
 //	}
 //
 //	export inline void logDebugToLogFile(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		std::ostream& fOut = static_cast<std::ostream&>(s_logFile);
-//		Log(fOut, Level::Debug, msg, location);
+//		std::ostream& fOut = static_cast<std::ostream&>(logFile_s);
+//		Log(fOut, Level::debug, msg, location);
 //	}
 //
 //	export inline void logTraceToLogFile(std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		std::ostream& fOut = static_cast<std::ostream&>(s_logFile);
-//		Log(fOut, Level::Trace, msg, location);
+//		std::ostream& fOut = static_cast<std::ostream&>(logFile_s);
+//		Log(fOut, Level::trace, msg, location);
 //	}
 //
 //
@@ -387,36 +387,36 @@
 //	export inline void logFatalToOutsream(std::ostream& os, std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		Log(os, Level::Fatal, msg, location);
+//		Log(os, Level::fatal, msg, location);
 //	}
 //
 //	export inline void logErrorToOutsream(std::ostream& os, std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		Log(os, Level::Error, msg, location);
+//		Log(os, Level::error, msg, location);
 //	}
 //
 //	export inline void logWarnToOutsream(std::ostream& os, std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		Log(os, Level::Warn, msg, location);
+//		Log(os, Level::warn, msg, location);
 //	}
 //
 //	export inline void logInfoToOutsream(std::ostream& os, std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		Log(os, Level::Info, msg, location);
+//		Log(os, Level::info, msg, location);
 //	}
 //
 //	export inline void logDebugToOutsream(std::ostream& os, std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		Log(os, Level::Debug, msg, location);
+//		Log(os, Level::debug, msg, location);
 //	}
 //
 //	export inline void logTraceToOutsream(std::ostream& os, std::string_view msg,
 //		const std::source_location location = std::source_location::current()) noexcept
 //	{
-//		Log(os, Level::Trace, msg, location);
+//		Log(os, Level::trace, msg, location);
 //	}
 //}

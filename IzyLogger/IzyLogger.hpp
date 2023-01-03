@@ -96,80 +96,80 @@ public:
 	inline static void logFatal(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::LogToBoth(Level::Fatal, msg, location);
+		IzyLogger::LogToBoth(Level::fatal, msg, location);
 	}
 
 	inline static void logError(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::LogToBoth(Level::Error, msg, location);
+		IzyLogger::LogToBoth(Level::error, msg, location);
 	}
 
 	inline static void logWarn(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::LogToBoth(Level::Warn, msg, location);
+		IzyLogger::LogToBoth(Level::warn, msg, location);
 	}
 
 	inline static void logInfo(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::LogToBoth(Level::Info, msg, location);
+		IzyLogger::LogToBoth(Level::info, msg, location);
 	}
 
 	inline static void logDebug(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::LogToBoth(Level::Debug, msg, location);
+		IzyLogger::LogToBoth(Level::debug, msg, location);
 	}
 
 	inline static void logTrace(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::LogToBoth(Level::Trace, msg, location);
+		IzyLogger::LogToBoth(Level::trace, msg, location);
 	}
 
 	///////////////////////////// write to log file ///////////////////////////////////////////
 	inline static void logFatalToLogFile(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::s_logFile);
-		IzyLogger::Log(fOut, Level::Fatal, msg, location);
+		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::logFile_s);
+		IzyLogger::Log(fOut, Level::fatal, msg, location);
 	}
 
 	inline static void logErrorToLogFile(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::s_logFile);
-		IzyLogger::Log(fOut, Level::Error, msg, location);
+		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::logFile_s);
+		IzyLogger::Log(fOut, Level::error, msg, location);
 	}
 
 	inline static void logWarnToLogFile(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::s_logFile);
-		IzyLogger::Log(fOut, Level::Warn, msg, location);
+		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::logFile_s);
+		IzyLogger::Log(fOut, Level::warn, msg, location);
 	}
 
 	inline static void logInfoToLogFile(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::s_logFile);
-		IzyLogger::Log(fOut, Level::Info, msg, location);
+		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::logFile_s);
+		IzyLogger::Log(fOut, Level::info, msg, location);
 	}
 
 	inline static void logDebugToLogFile(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::s_logFile);
-		IzyLogger::Log(fOut, Level::Debug, msg, location);
+		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::logFile_s);
+		IzyLogger::Log(fOut, Level::debug, msg, location);
 	}
 
 	inline static void logTraceToLogFile(std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::s_logFile);
-		IzyLogger::Log(fOut, Level::Trace, msg, location);
+		std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::logFile_s);
+		IzyLogger::Log(fOut, Level::trace, msg, location);
 	}
 
 
@@ -177,56 +177,56 @@ public:
 	inline static void logFatalToOutsream(std::ostream& os, std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::Log(os, Level::Fatal, msg, location);
+		IzyLogger::Log(os, Level::fatal, msg, location);
 	}
 
 	inline static void logErrorToOutsream(std::ostream& os, std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::Log(os, Level::Error, msg, location);
+		IzyLogger::Log(os, Level::error, msg, location);
 	}
 
 	inline static void logWarnToOutsream(std::ostream& os, std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::Log(os, Level::Warn, msg, location);
+		IzyLogger::Log(os, Level::warn, msg, location);
 	}
 
 	inline static void logInfoToOutsream(std::ostream& os, std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::Log(os, Level::Info, msg, location);
+		IzyLogger::Log(os, Level::info, msg, location);
 	}
 
 	inline static void logDebugToOutsream(std::ostream& os, std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::Log(os, Level::Debug, msg, location);
+		IzyLogger::Log(os, Level::debug, msg, location);
 	}
 
 	inline static void logTraceToOutsream(std::ostream& os, std::string_view msg,
 		const std::source_location location = std::source_location::current()) noexcept
 	{
-		IzyLogger::Log(os, Level::Trace, msg, location);
+		IzyLogger::Log(os, Level::trace, msg, location);
 	}
 #endif // DEBUG
 
 
 private:
-	static std::ofstream s_logFile;
-	static std::mutex s_mutex;
+	static std::ofstream logFile_s;
+	static std::mutex mutex_s;
 
 	enum class BackgroundColor : int
 	{
-		Black = 40,
-		Red = 41,
-		Green = 42,
-		Yellow = 43,
-		Blue = 44,
-		Magenta = 45,
-		Cyan = 46,
-		White = 47,
-		Default = 49
+		black = 40,
+		red = 41,
+		green = 42,
+		yellow = 43,
+		blue = 44,
+		magenta = 45,
+		cyan = 46,
+		white = 47,
+		defaultColor = 49
 	};
 
 	inline friend std::ostream& operator<<(std::ostream& os, BackgroundColor bgColor)
@@ -237,12 +237,12 @@ private:
 
 	enum class Level : int
 	{
-		Fatal,
-		Error,
-		Warn,
-		Info,
-		Debug,
-		Trace
+		fatal,
+		error,
+		warn,
+		info,
+		debug,
+		trace
 	};
 
 	static constexpr std::string_view to_string_view(Level lvl) noexcept;
@@ -270,36 +270,36 @@ private:
 	static void LogToBoth(Level lvl, std::string_view msg, const std::source_location location) noexcept;
 };
 
-std::ofstream IzyLogger::s_logFile{ "myLog.log" };
-std::mutex IzyLogger::s_mutex{};
+std::ofstream IzyLogger::logFile_s{ "myLog.log" };
+std::mutex IzyLogger::mutex_s{};
 
 
 
 constexpr std::string_view IzyLogger::to_string_view(Level lvl) noexcept
 {
-	if (lvl == Level::Fatal)
+	if (lvl == Level::fatal)
 	{
-		return "Fatal";
+		return "fatal";
 	}
-	else if (lvl == Level::Error)
+	else if (lvl == Level::error)
 	{
-		return "Error";
+		return "error";
 	}
-	else if (lvl == Level::Warn)
+	else if (lvl == Level::warn)
 	{
-		return "Warn";
+		return "warn";
 	}
-	else if (lvl == Level::Info)
+	else if (lvl == Level::info)
 	{
-		return "Info";
+		return "info";
 	}
-	else if (lvl == Level::Debug)
+	else if (lvl == Level::debug)
 	{
-		return "Debug";
+		return "debug";
 	}
-	else if (lvl == Level::Trace)
+	else if (lvl == Level::trace)
 	{
-		return "Trace";
+		return "trace";
 	}
 	else
 	{
@@ -309,31 +309,31 @@ constexpr std::string_view IzyLogger::to_string_view(Level lvl) noexcept
 
 IzyLogger::BackgroundColor IzyLogger::levelToColor(Level lvl) noexcept
 {
-	BackgroundColor bgColor{ BackgroundColor::Default };
+	BackgroundColor bgColor{ BackgroundColor::defaultColor };
 
-	if (lvl == Level::Fatal)
+	if (lvl == Level::fatal)
 	{
-		bgColor = BackgroundColor::Magenta;
+		bgColor = BackgroundColor::magenta;
 	}
-	else if (lvl == Level::Error)
+	else if (lvl == Level::error)
 	{
-		bgColor = BackgroundColor::Red;
+		bgColor = BackgroundColor::red;
 	}
-	else if (lvl == Level::Warn)
+	else if (lvl == Level::warn)
 	{
-		bgColor = BackgroundColor::Yellow;
+		bgColor = BackgroundColor::yellow;
 	}
-	else if (lvl == Level::Info)
+	else if (lvl == Level::info)
 	{
-		bgColor = BackgroundColor::Blue;
+		bgColor = BackgroundColor::blue;
 	}
-	else if (lvl == Level::Debug)
+	else if (lvl == Level::debug)
 	{
-		bgColor = BackgroundColor::Green;
+		bgColor = BackgroundColor::green;
 	}
-	else if (lvl == Level::Trace)
+	else if (lvl == Level::trace)
 	{
-		bgColor = BackgroundColor::Default;
+		bgColor = BackgroundColor::defaultColor;
 	}
 
 	return bgColor;
@@ -363,7 +363,7 @@ void IzyLogger::unTagMsgWithLevel(std::ostream& os) noexcept
 {
 	if (&os == &std::cout || &os == &std::cerr || &os == &std::clog)
 	{
-		IzyLogger::colorizeTerminal(os, BackgroundColor::Default);
+		IzyLogger::colorizeTerminal(os, BackgroundColor::defaultColor);
 	}
 }
 
@@ -407,7 +407,7 @@ std::ostringstream IzyLogger::getLocationStream(const std::source_location locat
 
 void IzyLogger::Log(std::ostream& os, IzyLogger::Level lvl, std::string_view msg, const std::source_location location) noexcept
 {
-	std::lock_guard lock{ s_mutex };
+	std::lock_guard lock{ mutex_s };
 
 	IzyLogger::tagMsgWithLevel(os, lvl);
 
@@ -422,7 +422,7 @@ void IzyLogger::Log(std::ostream& os, IzyLogger::Level lvl, std::string_view msg
 
 void IzyLogger::LogToBoth(IzyLogger::Level lvl, std::string_view msg, const std::source_location location) noexcept
 {
-	std::lock_guard lock{ s_mutex };
+	std::lock_guard lock{ mutex_s };
 
 	std::ostringstream timeStream{ IzyLogger::logTime() };
 	const std::string& timeStr{ timeStream.str() };
@@ -437,7 +437,7 @@ void IzyLogger::LogToBoth(IzyLogger::Level lvl, std::string_view msg, const std:
 		msg.data() + '\n'
 	};
 
-	std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::s_logFile);
+	std::ostream& fOut = static_cast<std::ostream&>(IzyLogger::logFile_s);
 	IzyLogger::tagMsgWithLevel(fOut, lvl);
 	fOut << logLine;
 	IzyLogger::unTagMsgWithLevel(fOut);
