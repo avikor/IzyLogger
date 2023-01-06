@@ -245,7 +245,37 @@ private:
 		trace
 	};
 
-	static constexpr std::string_view to_string_view(const Level lvl) noexcept;
+	static constexpr std::string_view to_string_view(const Level lvl) noexcept
+	{
+		if (lvl == Level::fatal)
+		{
+			return "fatal";
+		}
+		else if (lvl == Level::error)
+		{
+			return "error";
+		}
+		else if (lvl == Level::warn)
+		{
+			return "warn";
+		}
+		else if (lvl == Level::info)
+		{
+			return "info";
+		}
+		else if (lvl == Level::debug)
+		{
+			return "debug";
+		}
+		else if (lvl == Level::trace)
+		{
+			return "trace";
+		}
+		else
+		{
+			return "to_string_view(Level)-failure";
+		}
+	}
 
 	inline friend std::ostream& operator<<(std::ostream& os, const Level lvl)
 	{

@@ -2,41 +2,54 @@
 
 
 
+// taken from https://stackoverflow.com/a/63617586 
+#ifndef _MSC_VER
+#include <locale>   // std::use_facet, std::time_put
+
+template<typename CharT>
+struct _put_time
+{
+	const std::tm* time;
+	const char* fmt;
+};
+
+template<typename CharT>
+inline _put_time<CharT>
+put_time(const std::tm* time, const CharT* fmt)
+{
+	return { time, fmt };
+}
+
+template<typename CharT, typename Traits>
+std::basic_ostream<CharT, Traits>&
+operator<<(std::basic_ostream<CharT, Traits>& os, _put_time<CharT> f)
+{
+	typedef typename std::ostreambuf_iterator<CharT, Traits> Iter;
+	typedef std::time_put<CharT, Iter> TimePut;
+
+	const CharT* const fmt_end = f.fmt + Traits::length(f.fmt);
+	const TimePut& mp = std::use_facet<TimePut>(os.getloc());
+
+	std::ios_base::iostate err = std::ios_base::goodbit;
+	try {
+		if (mp.put(Iter(os.rdbuf()), os, os.fill(), f.time, f.fmt, fmt_end).failed())
+			err |= std::ios_base::badbit;
+	}
+	catch (...) {
+		err |= std::ios_base::badbit;
+	}
+
+	if (err)
+		os.setstate(err);
+
+	return os;
+}
+#endif
+
+
 std::ofstream IzyLogger::logFile_s{ "myLog.log" };
 std::mutex IzyLogger::mutex_s{};
 
-
-constexpr std::string_view IzyLogger::to_string_view(const Level lvl) noexcept
-{
-	if (lvl == Level::fatal)
-	{
-		return "fatal";
-	}
-	else if (lvl == Level::error)
-	{
-		return "error";
-	}
-	else if (lvl == Level::warn)
-	{
-		return "warn";
-	}
-	else if (lvl == Level::info)
-	{
-		return "info";
-	}
-	else if (lvl == Level::debug)
-	{
-		return "debug";
-	}
-	else if (lvl == Level::trace)
-	{
-		return "trace";
-	}
-	else
-	{
-		return "to_string_view(Level)-failure";
-	}
-}
 
 IzyLogger::BackgroundColor IzyLogger::levelToColor(const Level lvl) noexcept
 {
@@ -107,17 +120,29 @@ std::ostringstream IzyLogger::logTime() noexcept
 	const std::chrono::time_point<std::chrono::system_clock> n{ std::chrono::system_clock::now() };
 	const std::time_t in_time_t{ std::chrono::system_clock::to_time_t(n) };
 	std::tm buf{};
-	const errno_t err = localtime_s(&buf, &in_time_t);
+#if _MSC_VER
+	const errno_t err{ localtime_s(&buf, &in_time_t) };
 	if (err) [[unlikely]]
 	{
 		timeStream << "timestamp-log-failure ";
 	}
+#else
+	const std::tm* err{ localtime_r(&in_time_t, &buf) };
+	if (!err) [[unlikely]]
+	{
+		timeStream << "timestamp-log-failure ";
+	}
+#endif
 	else [[likely]]
 	{
 		const auto epoch{ n.time_since_epoch() };
-		const int microSeconds{ std::chrono::duration_cast<std::chrono::microseconds>(epoch).count() % microSecondsResolution };
+		const int microSeconds{ static_cast<int>(std::chrono::duration_cast<std::chrono::microseconds>(epoch).count()) % microSecondsResolution };
 
+#if _MSC_VER
 		timeStream << std::put_time(&buf, "%F %T.") << microSeconds << ' ';
+#else
+		timeStream << put_time(&buf, "%F %T.") << microSeconds << ' ';
+#endif
 	}
 
 	return timeStream;
